@@ -1,16 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void createMinSegmentTree(long int arr[], long int l, long int r, long int pos, long int min_seg[])
+void createMinSegmentTree(long int arr[], long int l_index, long int r_index, long int pos, long int min_seg[])
 {
-    if (l == r)
+    if (l_index == r_index)
     {
-        min_seg[pos] = arr[l];
+        min_seg[pos] = arr[l_index];
         return;
     }
-    long int mid = (l + r) / 2;
-    createMinSegmentTree(arr, l, mid, 2 * pos + 1, min_seg);
-    createMinSegmentTree(arr, mid + 1, r, 2 * pos + 2, min_seg);
+    long int mid = (l_index + r_index) / 2;
+    createMinSegmentTree(arr, l_index, mid, 2 * pos + 1, min_seg);
+    createMinSegmentTree(arr, mid + 1, r_index, 2 * pos + 2, min_seg);
     min_seg[pos] = min(min_seg[2 * pos + 1], min_seg[2 * pos + 2]);
 }
 
