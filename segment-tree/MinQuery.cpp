@@ -14,15 +14,15 @@ void createMinSegmentTree(long int arr[], long int l_index, long int r_index, lo
     min_seg[pos] = min(min_seg[2 * pos + 1], min_seg[2 * pos + 2]);
 }
 
-long int query(long int l_index, long int r_index, long int pos, long int min_seg[], long int l, long int r)
+long int minQuery(long int l_index, long int r_index, long int pos, long int min_seg[], long int l, long int r)
 {
     if (l_index > r || r_index < l)
         return INT_MAX;
     if (l_index >= l && r_index <= r)
         return min_seg[pos];
-    int mid = (l_index + r_index) / 2;
-    long int left_min = query(l_index, mid, 2 * pos + 1, min_seg, l, r);
-    long int right_min = query(mid + 1, r_index, 2 * pos + 2, min_seg, l, r);
+    long int mid = (l_index + r_index) / 2;
+    long int left_min = minQuery(l_index, mid, 2 * pos + 1, min_seg, l, r);
+    long int right_min = minQuery(mid + 1, r_index, 2 * pos + 2, min_seg, l, r);
     return min(left_min, right_min);
 }
 
@@ -40,6 +40,6 @@ int main()
     while (q--)
     {
         cin >> l >> r;
-        cout << query(0, n - 1, 0, min_seg, l, r) << endl;
+        cout << minQuery(0, n - 1, 0, min_seg, l, r) << endl;
     }
 }

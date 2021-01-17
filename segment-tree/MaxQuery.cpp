@@ -14,15 +14,15 @@ void createMaxSegmentTree(long int arr[], long int l_index, long int r_index, lo
     max_seg[pos] = max(max_seg[2 * pos + 1], max_seg[2 * pos + 2]);
 }
 
-long int query(long int l_index, long int r_index, long int pos, long int max_seg[], long int l, long int r)
+long int maxQuery(long int l_index, long int r_index, long int pos, long int max_seg[], long int l, long int r)
 {
     if (l_index > r || r_index < l)
         return INT_MIN;
     if (l_index >= l && r_index <= r)
         return max_seg[pos];
-    int mid = (l_index + r_index) / 2;
-    long int left_max = query(l_index, mid, 2 * pos + 1, max_seg, l, r);
-    long int right_max = query(mid + 1, r_index, 2 * pos + 2, max_seg, l, r);
+    long int mid = (l_index + r_index) / 2;
+    long int left_max = maxQuery(l_index, mid, 2 * pos + 1, max_seg, l, r);
+    long int right_max = maxQuery(mid + 1, r_index, 2 * pos + 2, max_seg, l, r);
     return max(left_max, right_max);
 }
 
@@ -40,6 +40,6 @@ int main()
     while (q--)
     {
         cin >> l >> r;
-        cout << query(0, n - 1, 0, max_seg, l, r) << endl;
+        cout << maxQuery(0, n - 1, 0, max_seg, l, r) << endl;
     }
 }
